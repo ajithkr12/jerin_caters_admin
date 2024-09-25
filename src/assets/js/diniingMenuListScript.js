@@ -1,15 +1,12 @@
 // Firebase configuration (Replace with your own configuration)
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCTT-7d9y-fXWAqN0wCNwT2VB1ezHZitt4",
-  authDomain: "testproject-80d23.firebaseapp.com",
-  databaseURL:
-    "https://testproject-80d23-default-rtdb.asia-southeast1.firebasedatabase.app",
-  projectId: "testproject-80d23",
-  storageBucket: "testproject-80d23.appspot.com",
-  messagingSenderId: "675304146337",
-  appId: "1:675304146337:web:17838009d1e7603fca77e0",
-  measurementId: "G-4J3PT933SQ",
+  apiKey: "AIzaSyCdCFCmHLNo2v8ArtU8cLShsBI5X84oZgc",
+  authDomain: "website-1b123.firebaseapp.com",
+  projectId: "website-1b123",
+  storageBucket: "website-1b123.appspot.com",
+  messagingSenderId: "869277703799",
+  appId: "1:869277703799:web:12facbcc19ecba6b793072",
 };
 
 // Initialize Firebase
