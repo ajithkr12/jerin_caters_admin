@@ -56,7 +56,7 @@ function loadData() {
 // Function to delete data
 function deleteData(id) {
   if (confirm("Are you sure you want to delete this entry?")) {
-    db.collection("gallery")
+    db.collection("messages")
       .doc(id)
       .delete()
       .then(() => {

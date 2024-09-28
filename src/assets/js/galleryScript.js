@@ -204,7 +204,7 @@ function loadData() {
             ${data.content}
             </p>
             <div class="">
-            <button class="edit-delete-button green-button" onclick="editData('${doc.id}', '${data.content}','${data.heading}','${data.subHeading}','${data.categoryName}')">Edit</button>
+            <button class="edit-delete-button green-button" onclick="editData('${doc.id}', \`${data.content}\`,'${data.heading}','${data.subHeading}','${data.categoryName}')">Edit</button>
             <button class="edit-delete-button red-button" onclick="deleteData('${doc.id}','${data.imageUrl}')">Delete</button>
             </div>
           </article>

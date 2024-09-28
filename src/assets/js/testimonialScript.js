@@ -20,8 +20,8 @@ document.getElementById("data-form").addEventListener("submit", function (e) {
   e.preventDefault();
   const content = document.getElementById("content").value;
   const name = document.getElementById("name").value;
-  const position = document.getElementById("position").value;
-  const companyName = document.getElementById("companyName").value;
+  // const position = document.getElementById("position").value;
+  // const companyName = document.getElementById("companyName").value;
   const image = document.getElementById("image").files[0];
 
   const form = document.getElementById("data-form");
@@ -35,8 +35,8 @@ document.getElementById("data-form").addEventListener("submit", function (e) {
       currentEditId,
       content,
       name,
-      position,
-      companyName,
+      // position,
+      // companyName,
       image,
       form,
       progressContainer,
@@ -73,8 +73,8 @@ document.getElementById("data-form").addEventListener("submit", function (e) {
               .add({
                 content: content,
                 name: name,
-                position: position,
-                companyName: companyName,
+                // position: position,
+                // companyName: companyName,
                 imageUrl: downloadURL,
               })
               .then(() => {
@@ -102,8 +102,8 @@ function updateDocument(
   id,
   content,
   name,
-  position,
-  companyName,
+  // position,
+  // companyName,
   image,
   form,
   progressContainer,
@@ -138,8 +138,8 @@ function updateDocument(
             .update({
               content: content,
               name: name,
-              position: position,
-              companyName: companyName,
+              // position: position,
+              // companyName: companyName,
               imageUrl: downloadURL,
             })
             .then(() => {
@@ -164,8 +164,8 @@ function updateDocument(
       .update({
         content: content,
         name: name,
-        position: position,
-        companyName: companyName,
+        // position: position,
+        // companyName: companyName,
       })
       .then(() => {
         alert("Data updated successfully!");
@@ -203,16 +203,13 @@ function loadData() {
               </div>
               <div class="detbox">
                 <p class="name">${data.name}</p>
-                <p class="designation">
-                ${data.position} -- ${data.companyName}
-                </p>
               </div>
             </div>
             <div class="review">
               <h4>${data.content}</h4>
             </div>
             <div class="">
-            <button class="edit-delete-button green-button" onclick="editData('${doc.id}', '${data.content}', '${data.name}', '${data.position}','${data.companyName}')">Edit</button>
+            <button class="edit-delete-button green-button" onclick="editData('${doc.id}', \`${data.content}\`, \`${data.name}\`)">Edit</button>
             <button class="edit-delete-button red-button" onclick="deleteData('${doc.id}','${data.imageUrl}')">Delete</button>
           </div>
         </div>`;
@@ -226,11 +223,11 @@ function loadData() {
 }
 
 // Function to edit data
-function editData(id, content, name, position, companyName) {
+function editData(id, content, name) {
   document.getElementById("content").value = content;
   document.getElementById("name").value = name;
-  document.getElementById("position").value = position;
-  document.getElementById("companyName").value = companyName;
+  // document.getElementById("position").value = position;
+  // document.getElementById("companyName").value = companyName;
   currentEditId = id; // Set the current document ID to edit
 }
 
