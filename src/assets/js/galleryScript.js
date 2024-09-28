@@ -18,9 +18,9 @@ var currentEditId = null; // To track the document ID being edited
 // Submit form data to Firebase
 document.getElementById("data-form").addEventListener("submit", function (e) {
   e.preventDefault();
-  const content = document.getElementById("content").value;
+  // const content = document.getElementById("content").value;
   const heading = document.getElementById("heading").value;
-  const subHeading = document.getElementById("subHeading").value;
+  // const subHeading = document.getElementById("subHeading").value;
   const categoryName = document.getElementById("categoryName").value;
   const image = document.getElementById("image").files[0];
   const form = document.getElementById("data-form");
@@ -32,9 +32,9 @@ document.getElementById("data-form").addEventListener("submit", function (e) {
     // Edit existing document
     updateDocument(
       currentEditId,
-      content,
+      // content,
       heading,
-      subHeading,
+      // subHeading,
       categoryName,
       image,
       form,
@@ -70,9 +70,9 @@ document.getElementById("data-form").addEventListener("submit", function (e) {
             // Save form data along with image URL to Firestore
             db.collection("gallery")
               .add({
-                content: content,
+                // content: content,
                 heading: heading,
-                subHeading: subHeading,
+                // subHeading: subHeading,
                 categoryName: categoryName,
                 imageUrl: downloadURL,
               })
@@ -99,9 +99,9 @@ document.getElementById("data-form").addEventListener("submit", function (e) {
 // Function to update a document
 function updateDocument(
   id,
-  content,
+  // content,
   heading,
-  subHeading,
+  // subHeading,
   categoryName,
   image,
   form,
@@ -135,9 +135,9 @@ function updateDocument(
           db.collection("users")
             .doc(id)
             .update({
-              content: content,
+              // content: content,
               heading: heading,
-              subHeading: subHeading,
+              // subHeading: subHeading,
               categoryName: categoryName,
               imageUrl: downloadURL,
             })
@@ -161,9 +161,10 @@ function updateDocument(
     db.collection("gallery")
       .doc(id)
       .update({
-        content: content,
+        // content: content,
         heading: heading,
-        subHeading: subHeading,
+        // subHeading: subHeading,
+        categoryName: categoryName,
       })
       .then(() => {
         alert("Data updated successfully!");
@@ -204,7 +205,7 @@ function loadData() {
             ${data.content}
             </p>
             <div class="">
-            <button class="edit-delete-button green-button" onclick="editData('${doc.id}', \`${data.content}\`,'${data.heading}','${data.subHeading}','${data.categoryName}')">Edit</button>
+            <button class="edit-delete-button green-button" onclick="editData('${doc.id}','${data.heading}','${data.categoryName}')">Edit</button>
             <button class="edit-delete-button red-button" onclick="deleteData('${doc.id}','${data.imageUrl}')">Delete</button>
             </div>
           </article>
@@ -220,10 +221,10 @@ function loadData() {
 }
 
 // Function to edit data
-function editData(id, content, heading, subHeading, categoryName) {
-  document.getElementById("content").value = content;
+function editData(id, heading, categoryName) {
+  // document.getElementById("content").value = content;
   document.getElementById("heading").value = heading;
-  document.getElementById("subHeading").value = subHeading;
+  // document.getElementById("subHeading").value = subHeading;
   document.getElementById("categoryName").value = categoryName;
 
   currentEditId = id; // Set the current document ID to edit

@@ -20,7 +20,7 @@ document.getElementById("data-form").addEventListener("submit", function (e) {
   e.preventDefault();
   const content = document.getElementById("content").value;
   const heading = document.getElementById("heading").value;
-  const subHeading = document.getElementById("subHeading").value;
+  // const subHeading = document.getElementById("subHeading").value;
   const categoryName = document.getElementById("categoryName").value;
   const image = document.getElementById("image").files[0];
 
@@ -35,7 +35,7 @@ document.getElementById("data-form").addEventListener("submit", function (e) {
       currentEditId,
       content,
       heading,
-      subHeading,
+      // subHeading,
       categoryName,
       image,
       form,
@@ -73,7 +73,7 @@ document.getElementById("data-form").addEventListener("submit", function (e) {
               .add({
                 content: content,
                 heading: heading,
-                subHeading: subHeading,
+                // subHeading: subHeading,
                 categoryName: categoryName,
                 imageUrl: downloadURL,
               })
@@ -102,7 +102,7 @@ function updateDocument(
   id,
   content,
   heading,
-  subHeading,
+  // subHeading,
   categoryName,
   image,
   form,
@@ -133,12 +133,12 @@ function updateDocument(
         // Upload completed successfully, get the download URL
         uploadTask.snapshot.ref.getDownloadURL().then(function (downloadURL) {
           // Update document with new data
-          db.collection("users")
+          db.collection("menu_list")
             .doc(id)
             .update({
               content: content,
               heading: heading,
-              subHeading: subHeading,
+              // subHeading: subHeading,
               categoryName: categoryName,
               imageUrl: downloadURL,
             })
@@ -164,7 +164,7 @@ function updateDocument(
       .update({
         content: content,
         heading: heading,
-        subHeading: subHeading,
+        // subHeading: subHeading,
         categoryName: categoryName,
       })
       .then(() => {
@@ -206,14 +206,34 @@ function loadData() {
             ${data.content}
             </p>
             <div class="">
-            <button class="edit-delete-button green-button" onclick="editData('${doc.id}', '${data.content}','${data.heading}','${data.subHeading}','${data.categoryName}')">Edit</button>
-            <button class="edit-delete-button red-button" onclick="deleteData('${doc.id}','${data.imageUrl}')">Delete</button>
+            <button class="edit-delete-button green-button" 
+            data-id="${doc.id}" 
+            data-content="${data.content.replace(/"/g, "&quot;")}" 
+            data-heading="${data.heading}" 
+            data-categoryName="${data.categoryName}">Edit</button>
+
+
+
+            <button class="edit-delete-button red-button" onclick="deleteData('${
+              doc.id
+            }','${data.imageUrl}')">Delete</button>
             </div>
           </article>
         </div>
       </div>`;
 
         dataList.appendChild(listItem);
+
+        listItem
+          .querySelector(".edit-delete-button.green-button")
+          .addEventListener("click", function () {
+            editData(
+              this.getAttribute("data-id"),
+              this.getAttribute("data-content"),
+              this.getAttribute("data-heading"),
+              this.getAttribute("data-categoryName")
+            );
+          });
       });
     })
     .catch((error) => {
@@ -222,10 +242,9 @@ function loadData() {
 }
 
 // Function to edit data
-function editData(id, content, heading, subHeading, categoryName) {
+function editData(id, content, heading, categoryName) {
   document.getElementById("content").value = content;
   document.getElementById("heading").value = heading;
-  document.getElementById("subHeading").value = subHeading;
   document.getElementById("categoryName").value = categoryName;
   currentEditId = id; // Set the current document ID to edit
 }

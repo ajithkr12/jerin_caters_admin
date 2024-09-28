@@ -20,7 +20,7 @@ document.getElementById("data-form").addEventListener("submit", function (e) {
   e.preventDefault();
   const content = document.getElementById("content").value;
   const name = document.getElementById("name").value;
-  // const position = document.getElementById("position").value;
+  const position = document.getElementById("position").value;
   // const companyName = document.getElementById("companyName").value;
   const image = document.getElementById("image").files[0];
 
@@ -35,7 +35,7 @@ document.getElementById("data-form").addEventListener("submit", function (e) {
       currentEditId,
       content,
       name,
-      // position,
+      position,
       // companyName,
       image,
       form,
@@ -73,7 +73,7 @@ document.getElementById("data-form").addEventListener("submit", function (e) {
               .add({
                 content: content,
                 name: name,
-                // position: position,
+                position: position,
                 // companyName: companyName,
                 imageUrl: downloadURL,
               })
@@ -102,7 +102,7 @@ function updateDocument(
   id,
   content,
   name,
-  // position,
+  position,
   // companyName,
   image,
   form,
@@ -133,12 +133,12 @@ function updateDocument(
         // Upload completed successfully, get the download URL
         uploadTask.snapshot.ref.getDownloadURL().then(function (downloadURL) {
           // Update document with new data
-          db.collection("users")
+          db.collection("testimonials")
             .doc(id)
             .update({
               content: content,
               name: name,
-              // position: position,
+              position: position,
               // companyName: companyName,
               imageUrl: downloadURL,
             })
@@ -164,7 +164,7 @@ function updateDocument(
       .update({
         content: content,
         name: name,
-        // position: position,
+        position: position,
         // companyName: companyName,
       })
       .then(() => {
@@ -209,12 +209,29 @@ function loadData() {
               <h4>${data.content}</h4>
             </div>
             <div class="">
-            <button class="edit-delete-button green-button" onclick="editData('${doc.id}', \`${data.content}\`, \`${data.name}\`)">Edit</button>
-            <button class="edit-delete-button red-button" onclick="deleteData('${doc.id}','${data.imageUrl}')">Delete</button>
+            <button class="edit-delete-button green-button" 
+            data-id="${doc.id}" 
+            data-content="${data.content.replace(/"/g, "&quot;")}" 
+            data-name="${data.name}" 
+            data-position="${data.position}">Edit</button>
+            <button class="edit-delete-button red-button" onclick="deleteData('${
+              doc.id
+            }','${data.imageUrl}')">Delete</button>
           </div>
         </div>`;
 
         dataList.appendChild(listItem);
+
+        listItem
+          .querySelector(".edit-delete-button.green-button")
+          .addEventListener("click", function () {
+            editData(
+              this.getAttribute("data-id"),
+              this.getAttribute("data-content"),
+              this.getAttribute("data-name"),
+              this.getAttribute("data-position")
+            );
+          });
       });
     })
     .catch((error) => {
@@ -223,10 +240,10 @@ function loadData() {
 }
 
 // Function to edit data
-function editData(id, content, name) {
+function editData(id, content, name, position) {
   document.getElementById("content").value = content;
   document.getElementById("name").value = name;
-  // document.getElementById("position").value = position;
+  document.getElementById("position").value = position;
   // document.getElementById("companyName").value = companyName;
   currentEditId = id; // Set the current document ID to edit
 }
