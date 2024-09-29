@@ -22,7 +22,10 @@ document.getElementById("data-form").addEventListener("submit", function (e) {
   const name = document.getElementById("name").value;
   const position = document.getElementById("position").value;
   // const companyName = document.getElementById("companyName").value;
-  const image = document.getElementById("image").files[0];
+  const images = document.getElementById("image").files[0];
+  const fileExtension = images.name.split(".").pop(); // Extract the original file extension
+  const newFileName = generateRandomFileName(`.${fileExtension}`); // Generate a random file name with the same extension
+  const image = new File([images], newFileName, { type: images.type });
 
   const form = document.getElementById("data-form");
   const progressContainer = document.getElementById("progress-container");

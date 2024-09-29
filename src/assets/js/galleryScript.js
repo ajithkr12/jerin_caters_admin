@@ -22,7 +22,12 @@ document.getElementById("data-form").addEventListener("submit", function (e) {
   const heading = document.getElementById("heading").value;
   // const subHeading = document.getElementById("subHeading").value;
   const categoryName = document.getElementById("categoryName").value;
-  const image = document.getElementById("image").files[0];
+
+  const images = document.getElementById("image").files[0];
+  const fileExtension = images.name.split(".").pop(); // Extract the original file extension
+  const newFileName = generateRandomFileName(`.${fileExtension}`); // Generate a random file name with the same extension
+  const image = new File([images], newFileName, { type: images.type });
+
   const form = document.getElementById("data-form");
   const progressContainer = document.getElementById("progress-container");
   const progressBar = document.getElementById("upload-progress");
@@ -132,7 +137,7 @@ function updateDocument(
         // Upload completed successfully, get the download URL
         uploadTask.snapshot.ref.getDownloadURL().then(function (downloadURL) {
           // Update document with new data
-          db.collection("users")
+          db.collection("gallery")
             .doc(id)
             .update({
               // content: content,
