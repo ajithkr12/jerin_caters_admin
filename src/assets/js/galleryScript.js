@@ -265,3 +265,5 @@ function deleteData(id, imageUrl) {
 
 // Load data when the page loads
 window.onload = loadData;
+
+//
